@@ -60,7 +60,7 @@ class Laboratorio
                 }
                 else
                 {
-                    $lab->horas[$primer][$w % 5)] = $valor_escapado;
+                    $lab->horas[$primer][$w % 5] = $valor_escapado;
                 }
             }
         }
