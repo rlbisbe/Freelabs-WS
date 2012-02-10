@@ -57,7 +57,9 @@ class Laboratorio
             foreach($f->find('td') as $g){
                 //echo $g->innertext . '<br>';
                 $w += 1;
-                $lab->horas[$primer][$w % 5] = $g->innertext;
+                $valor_escapado = str_replace("</font></a>","",$g->innertext);
+                $valor_escapado = str_replace("<font color=\"black\">","",$valor_escapado);
+                $lab->horas[$primer][$w % 5] = $valor_escapado;
                 if($w % 5 == 0){
                     //echo "<hr>";
                 }

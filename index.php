@@ -7,16 +7,7 @@ include_once 'models/TodoItem.php';
 include_once 'models/Laboratorio.php';
 
 try{
-    $enc_request = $_REQUEST['enc_request'];
-
-    $app_id = $_REQUEST['app_id'];
-
-    if(!isset($applications[$app_id])){
-        throw new Exception('Application does not exist!');
-    }
-
-    $params = json_decode(trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256,$applications[$app_id],base64_decode($enc_request),MCRYPT_MODE_ECB)));
-    $params = (array) $params;
+    $params = $_REQUEST;
     $controller = ucfirst(strtolower($params['controller']));
     $action = strtolower($params['action']).'Action';
 
