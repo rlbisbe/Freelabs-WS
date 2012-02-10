@@ -2,8 +2,6 @@
 define('DATA_PATH', realpath(dirname(__FILE__).'/data'));
 
 $applications = array('APP001' => '28e336ac6c9423d946ba02d19c6a2632');
-
-include_once 'models/TodoItem.php';
 include_once 'models/Laboratorio.php';
 
 try{
