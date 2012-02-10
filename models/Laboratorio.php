@@ -15,11 +15,6 @@ class Laboratorio
         );
     }
 
-    public static function ejemplo($id)
-    {
-        return $id;
-    }
-
     public static function get($id)
     {
         
@@ -67,5 +62,17 @@ class Laboratorio
         }
         
         return $lab;
+    }
+
+    public function getAll(){
+        $result = array();
+        $html = file_get_html("http://www.eps.uam.es/esp/alumnos/lab_horario.php?horario_id=17&semestre=S2");
+
+        $e = $html->find('select');
+        $e = $e[0];
+        foreach($e->find('option') as $g){
+                $result[$g->value] = $g->innertext;
+            }
+        return $result;
     }
 }

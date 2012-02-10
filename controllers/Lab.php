@@ -13,4 +13,9 @@ class Lab
         $lab = Laboratorio::get($this->_params['id']);
         return $lab;
     }
+
+    public function getAllAction(){
+        $labs = Laboratorio::getAll();
+        return $labs;
+    }
 }
