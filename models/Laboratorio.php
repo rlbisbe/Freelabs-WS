@@ -54,9 +54,13 @@ class Laboratorio
                 $w += 1;
                 $valor_escapado = str_replace("</font></a>","",$g->innertext);
                 $valor_escapado = str_replace("<font color=\"black\">","",$valor_escapado);
-                $lab->horas[$primer][$w % 5] = $valor_escapado;
                 if($w % 5 == 0){
+                     $lab->horas[$primer][5] = $valor_escapado;
                     //echo "<hr>";
+                }
+                else
+                {
+                    $lab->horas[$primer][$w % 5)] = $valor_escapado;
                 }
             }
         }
