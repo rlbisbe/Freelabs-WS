@@ -35,6 +35,7 @@ class Laboratorio
         $lab->name = "Laboratorio1";
         $lab->horas = array();
         
+        $t = 0;
         foreach($e->find('tr') as $f)
         {
             $w = 0;
@@ -55,14 +56,17 @@ class Laboratorio
                 $valor_escapado = str_replace("</font></a>","",$g->innertext);
                 $valor_escapado = str_replace("<font color=\"black\">","",$valor_escapado);
                 if($w % 5 == 0){
-                     $lab->horas[$primer][5] = $valor_escapado;
+                     $lab->horas[$t]["clave"] = $primer;
+                     $lab->horas[$t]["valores"][5] = $valor_escapado;
+
                     //echo "<hr>";
                 }
                 else
                 {
-                    $lab->horas[$primer][$w % 5] = $valor_escapado;
+                    $lab->horas[$t]["valores"][$w % 5] = $valor_escapado;
                 }
             }
+            $t+=1;
         }
         
         return $lab;
