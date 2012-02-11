@@ -75,8 +75,8 @@ class Laboratorio
         $e = $html->find('select');
         $e = $e[0];
         foreach($e->find('option') as $g){
-                $result[$g->value] = $g->innertext;
-            }
+                $result[] = array("id" => $g->value, "name" => $g->innertext);
+        }
         return $result;
     }
 }
