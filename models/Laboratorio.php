@@ -20,6 +20,7 @@ class Laboratorio
         
         $html = file_get_html("http://www.eps.uam.es/esp/alumnos/lab_horario.php?local_id={$id}&horario_id=17&semestre=S2");
 
+        $id_lab = $html->find('option[selected]');
         $e = $html->find('table');
         $e = $e[0];
 
@@ -32,7 +33,7 @@ class Laboratorio
         $lab = new Laboratorio();
     
         $lab->lab_id = $id;
-        $lab->name = "Laboratorio1";
+        $lab->name = $id_lab[0]->innertext;
         $lab->horas = array();
         
         $t = 0;
