@@ -29,6 +29,6 @@ try{
     $result['success'] = false;
     $result['errormsg'] = $e->getMessage();
 }
-
+header("Content-type: application/json");
 echo json_encode($result);
 exit();
