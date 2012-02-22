@@ -1,5 +1,6 @@
 <?php 
 include('simple_html_dom.php');
+include('CURL.php');
 
 class Laboratorio
 {
@@ -15,10 +16,11 @@ class Laboratorio
         );
     }
 
-    public static function get($id)
+    public static function get($id,$html = null)
     {
         
-        $html = file_get_html("http://www.eps.uam.es/esp/alumnos/lab_horario.php?local_id={$id}&horario_id=17&semestre=S2");
+        if ($html == null)
+			$html = file_get_html("http://www.eps.uam.es/esp/alumnos/lab_horario.php?local_id={$id}&horario_id=17&semestre=S2");
 
         $id_lab = $html->find('option[selected]');
         $e = $html->find('table');
@@ -79,9 +81,24 @@ class Laboratorio
 
         $e = $html->find('select');
         $e = $e[0];
+        
+        $curl = new CURL();
+		$opts = array( CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true  );
+        
         foreach($e->find('option') as $g){
                 $result[] = array("id" => $g->value, "name" => $g->innertext);
+                $id = $g->value;
+                $curl->addSession( "http://www.eps.uam.es/esp/alumnos/lab_horario.php?local_id={$id}&horario_id=17&semestre=S2", $opts );
         }
+        
+        // Ejecuta todas las peticiones en paralelo
+        $pages = $curl->exec();
+        $curl->clear();
+        
+        for($i = 0; $i < sizeof($pages) ; $i++) {
+			$result[$i]["data"] = Laboratorio::get($result[$i]["id"],$page); 
+		}
+        
         return $result;
     }
 }
